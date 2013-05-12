@@ -7,6 +7,7 @@ It can generate a few different types of stereo images:
 
 - red/cyan anaglyphs: true, monochrome, color, half color and optimized algorithms (see [this page](http://www.3dtv.at/knowhow/anaglyphcomparison_en.aspx) for details).
 - stereo pairs: parallel or cross-eyed viewing, in color or monochrome.
+- wiggle 3D animated GIFs
 
 Invoke the script without arguments for usage information.
 

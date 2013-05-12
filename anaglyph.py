@@ -20,7 +20,8 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import optparse
-from PIL import Image
+from PIL import Image, ImageSequence
+from images2gif import writeGif
 
 matrices = {
     'true': [ [ 0.299, 0.587, 0.114, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0.299, 0.587, 0.114 ] ],
@@ -61,6 +62,12 @@ def make_stereopair(left, right, color, path):
         pair = pair.convert('L')
     pair.save(path)
 
+def make_wiggle3d(left, right, color, path):
+    if color == 'mono':
+        left = left.convert('L')
+        right = right.convert('L')
+    writeGif(path, [left, right], 0.1, True, False, 0, False, 2)
+
 def parse_arguments():
     parser = optparse.OptionParser(usage = 'usage: %prog [options] left_image right_image stereo_image')
 
@@ -74,6 +81,9 @@ def parse_arguments():
     group.add_option('-x', '--crossed',
         action = 'store_const', const = 'crossed', dest = 'type',
         help = 'generate a crossed viewing stereo pair')
+    group.add_option('-w', '--wiggle',
+        action = 'store_const', const = 'wiggle', dest = 'type',
+        help = 'generate a "Wiggle 3D" animated GIF file')
     parser.add_option_group(group)
 
     group = optparse.OptionGroup(parser, "Color options")
@@ -94,6 +104,12 @@ def parse_arguments():
         help = 'generate an optimized color picture (default)')
     parser.add_option_group(group)
 
+    group = optparse.OptionGroup(parser, "Other options")
+    group.add_option('-s', '--size',
+        action = 'store', type = 'int', dest = 'size', default = 0,
+        help = 'resize image to this width')
+    parser.add_option_group(group)
+
     options, args = parser.parse_args()
     if len(args) != 3:
         parser.error('wrong number of arguments')
@@ -103,7 +119,10 @@ def parse_arguments():
     rightImage = Image.open(args[1])
     if leftImage.size != rightImage.size:
         parser.error('left and right images must have the same size')
-
+    if options.size > 0:
+        width, height = leftImage.size
+        leftImage = leftImage.resize((options.size, options.size * height / width), Image.ANTIALIAS)
+        rightImage = rightImage.resize((options.size, options.size * height / width), Image.ANTIALIAS)
     return options, leftImage, rightImage, args[2]
 
 def main():
@@ -115,6 +134,8 @@ def main():
         make_stereopair(leftImage, rightImage, options.color, stereoPath)
     elif options.type == 'crossed':
         make_stereopair(rightImage, leftImage, options.color, stereoPath)
+    elif options.type == 'wiggle':
+        make_wiggle3d(leftImage, rightImage, options.color, stereoPath)
 
 if __name__ == '__main__':
     main()

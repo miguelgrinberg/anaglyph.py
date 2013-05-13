@@ -5,11 +5,19 @@ Simple anaglyph image generator written in Python and PIL.
 
 It can generate a few different types of stereo images:
 
-- red/cyan anaglyphs: true, monochrome, color, half color and optimized algorithms (see [this page](http://www.3dtv.at/knowhow/anaglyphcomparison_en.aspx) for details).
-- stereo pairs: parallel or cross-eyed viewing, in color or monochrome.
-- wiggle 3D animated GIFs
+- Red/cyan anaglyphs: true, monochrome, color, half color and optimized algorithms (see [this page](http://www.3dtv.at/knowhow/anaglyphcomparison_en.aspx) for algorithm details)
 
-Invoke the script without arguments for usage information.
+  <img src="http://blog.miguelgrinberg.com/static/images/3d-pictures-01-icon.jpg" />
+
+- Stereo pairs: parallel or cross-eyed viewing, in color or monochrome
+
+  <img src="http://blog.miguelgrinberg.com/static/images/3d-pictures-05-icon.jpg" />
+
+- Wiggle 3D animated GIFs
+
+  <img src="http://blog.miguelgrinberg.com/static/images/3d-pictures-08.gif" />
+
+Run `./anaglyph.py --help` for usage information.
 
 
 License

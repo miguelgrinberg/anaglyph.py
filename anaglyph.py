@@ -1,4 +1,4 @@
-#!env python
+#!/usr/bin/env python
 
 # Copyright (c) 2013 by Miguel Grinberg
 #
@@ -105,9 +105,9 @@ def parse_arguments():
     parser.add_option_group(group)
 
     group = optparse.OptionGroup(parser, "Other options")
-    group.add_option('-s', '--size',
+    group.add_option('-r', '--resize',
         action = 'store', type = 'int', dest = 'size', default = 0,
-        help = 'resize image to this width')
+        help = 'resize image to the given width (height is automatically calculated to preserve aspect ratio)')
     parser.add_option_group(group)
 
     options, args = parser.parse_args()

@@ -1,7 +1,7 @@
 anaglyph.py
 ===========
 
-Simple anaglyph image generator written in Python and PIL.
+Simple anaglyph image generator written in Python and PIL. Detailed tutorial and usage instructions are in my blog article: http://blog.miguelgrinberg.com/post/take-3d-pictures-with-your-canon-dslr-and-magic-lantern.
 
 It can generate a few different types of stereo images:
 

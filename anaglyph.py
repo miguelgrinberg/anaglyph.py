@@ -21,7 +21,6 @@
 
 import optparse
 from PIL import Image, ImageSequence
-from images2gif import writeGif
 
 matrices = {
     'true': [ [ 0.299, 0.587, 0.114, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0.299, 0.587, 0.114 ] ],
@@ -66,7 +65,9 @@ def make_wiggle3d(left, right, color, path):
     if color == 'mono':
         left = left.convert('L')
         right = right.convert('L')
-    writeGif(path, [left, right], 0.1, True, False, 0, False, 2)
+    #writeGif(path, [left, right], 0.1, True, False, 0, False, 2)
+    left.save(path, save_all=True, append_images=[right], duration=0.1, loop=0,
+              dispose=2)
 
 def parse_arguments():
     parser = optparse.OptionParser(usage = 'usage: %prog [options] left_image right_image stereo_image')
